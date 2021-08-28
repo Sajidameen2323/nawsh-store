@@ -92,6 +92,7 @@ def processOrder(request):
 	if total == order.get_cart_total:
 		order.complete = True
 	order.save()
+	Order.objects.all().delete()
 
 	if order.shipping == True:
 		ShippingAddress.objects.create(
