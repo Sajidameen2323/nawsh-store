@@ -3,11 +3,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Ncom</title>
+	<title>NES</title>
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/contacts.css' %}">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
@@ -68,8 +70,9 @@
 <body>
 
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  <a class="navbar-brand" href="{% url 'store' %}">Ncom</a>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+		<div class="badge bg-warning text-wrap text-center pl-3"><a class="navbar-brand text-dark" href="{% url 'store' %}">NES</a></div>
+	  
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -79,16 +82,25 @@
 	      <li class="nav-item active">
 	        <a class="nav-link" href="{% url 'store' %}">Store<span class="sr-only">(current)</span></a>
 	      </li>
+	      <li class="nav-item active">
+        	<a class="nav-link" href="{% url 'contacts' %}">Contact<span class="sr-only">(current)</span></a>
+     	 </li>
 	    </ul>
+	    
+	    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="POST">
+	    	{% csrf_token %}
+      		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+      		<button class="btn btn-dark mr-2 mr-sm-2 " type="submit">Search</button>
+    	</form>
 
 	    <div class="form-inline my-2 my-lg-0">
 	    {% if not auth %}
 
-     	<a href="/accounts/login/"class="btn btn-warning ">
+     	<a href="/accounts/login/"class="btn btn-dark mr-2 mr-sm-2">
      		Login
      	</a>
      	{%else%}
-     	<a href="/accounts/logout/"class="btn btn-warning rounded">
+     	<a href="/accounts/logout/"class="btn btn-dark mr-2 mr-sm-2">
      		Logout
      	</a>
      	{%endif%}
@@ -104,10 +116,13 @@
 	  </div>
 	</nav>
 	{%if auth%}
-	<h5 style="text-align: center;">Welcome Back {{user}}</h5>
+	<h5 style="text-align: center;"> Hoşgeldiniz {{user}}</h5>
 	{%else%}
 	{%endif%}
-
+	{%if search_query%}
+		<h6 class="mt-2 text-center text-primary">Search Results For {{search_query}}</h6>
+	{%endif%}	
+	
 	<div class="container">
 		<br>
 		{% block content %}

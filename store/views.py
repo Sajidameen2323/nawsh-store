@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
 import json
 import datetime
@@ -20,13 +20,32 @@ def store(request):
 	else:
                 auth = False
 	products = Product.objects.all()
+	
 	context = {'products':products, 'cartItems':cartItems, 'auth':auth}
 	return render(request, 'store/store.html', context)
 
 
+def filter_store(request):
+        data = cartData(request)
+        search = request.POST.get('search')
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
+
+        if request.user.is_authenticated:
+                auth = True
+        else:
+                auth = False
+        if search != '':
+                products = Product.objects.all().filter(name__contains=search)
+        else:
+                products = Product.objects.all()       
+
+        context = {'products':products, 'cartItems':cartItems, 'auth':auth, 'search_query':search}
+        return render(request, 'store/store.html', context)
+
 def sepet(request):
 	data = cartData(request)
-
 	cartItems = data['cartItems']
 	order = data['order']
 	items = data['items']
@@ -36,6 +55,19 @@ def sepet(request):
                 auth = False
 	context = {'items':items, 'order':order, 'cartItems':cartItems, 'auth':auth}
 	return render(request, 'store/sepet.html', context)
+
+def cart_clear(request):
+	data = cartData(request)
+	Order.objects.all().delete()
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+	if request.user.is_authenticated:
+                auth = True
+	else:
+                auth = False
+	context = {'items':items, 'order':order, 'cartItems':cartItems, 'auth':auth}
+	return redirect('/sepet', context)
 
 def checkout(request):
 	data = cartData(request)
@@ -112,3 +144,22 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
+def contacts(request):
+	context = {}
+	return render(request, 'store/contacts.html', context)
+
+def detail_view(request,item_id):
+	data = cartData(request)
+
+	cartItems = data['cartItems']
+	print(cartItems)
+	order = data['order']
+	items = data['items']
+	if request.user.is_authenticated:
+                auth = True
+	else:
+                auth = False
+	products = Product.objects.all().filter(pk=item_id)
+	
+	context = {'products':products, 'cartItems':cartItems, 'auth':auth}
+	return render(request, 'store/detail.html', context)

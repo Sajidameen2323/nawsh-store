@@ -1,7 +1,9 @@
 body{
 	background-color: #EDF5E1!important;
 }
-
+input{
+	border-radius: 0;
+}
 h1,h2,h3,h4,h5,h6{
 	color:hsL(0, 0%, 30%);
 }
@@ -42,7 +44,7 @@ height: 20px;
 }
 
 .bg-dark{
-	background-color: #90939E!important;
+	background-color: #5B5EA6!important;
 }
 
 #sepet-icon{
