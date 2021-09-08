@@ -173,7 +173,9 @@ class SignUpView(generic.CreateView):
 
 
 def contacts(request):
-    context = {}
+    data = cartData(request)
+    cartItems = data['cartItems']
+    context = {'cartItems': cartItems}
     return render(request, 'store/contacts.html', context)
 
 
