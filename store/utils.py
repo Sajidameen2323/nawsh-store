@@ -41,6 +41,14 @@ def cookieCart(request):
 			
 	return {'cartItems':cartItems ,'order':order, 'items':items}
 
+def cookieCartClear(request):
+        request.COOKIES['cart'] = {}
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+        cartItems = order['get_cart_items']
+
+        return {'cartItems':cartItems ,'order':order, 'items':items}
+
 def cartData(request):
 	if request.user.is_authenticated:
 

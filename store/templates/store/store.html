@@ -21,6 +21,22 @@
 		</div>
 		{% endfor %}
 	</div>
+	<div class="row mt-5 justify-content-center border border-white">
+		<nav aria-label="Page navigation example border border-white bg-dark">
+  <ul class="pagination justify-content-center">
+		{%for i in pages%}
+		{%if active_page == i%}
+		<li class="page-item active"><a class="page-link" href="{% url 'store' i %}">{{i}}</a></li>
+		{%else%}
+			<li class="page-item"><a class="page-link" href="{% url 'store' i %}">{{i}}</a></li>
+		{%endif%}
+	
+		{%endfor%}
+
+  </ul>
+</nav>
+
+	</div>
 
 {% endblock content %}
 

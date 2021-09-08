@@ -104,13 +104,12 @@
      		Logout
      	</a>
      	{%endif%}
-     	{%if auth%}
+     	
      	<a href="{% url 'sepet' %}">
     		<img  id="sepet-icon" src="{% static 'images/shopping-cart.png' %}">
     	</a>
     	<div class="totalCartitems" >{{cartItems}}</div> 
-    	{%else%}
-		{%endif%}
+  
 
     </div>
 	  </div>

@@ -98,7 +98,8 @@
         // Finalize the transaction
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(orderData) {
-            	submitFormData()
+            	submitFormData();
+            	alert('Transaction completed');
             });
         }
 
@@ -172,6 +173,7 @@
 	    	console.log('User Info:', userFormData)
 
 	    	var url = "/process_order/"
+
 	    	fetch(url, {
 	    		method:'POST',
 	    		headers:{
@@ -184,14 +186,14 @@
 	    	.then((response) => response.json())
 	    	.then((data) => {
 				console.log('Success:', data);
-				alert('Transaction completed');  
-
+				alert('Transaction completed');
 				cart = {}
 				document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
-				 
+				
 				window.location.href = "{% url 'store' %}"
 
 				})
+
 	    }
 
 	</script>

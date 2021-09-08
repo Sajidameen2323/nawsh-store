@@ -7,8 +7,9 @@
 			<div class="box-element">
 
 				<a class="btn btn-outline-dark" href="{% url 'store'%}">&#8592; Alışverişe devam</a>
-				<a class="btn btn-outline-dark" style="float: right;" href="{% url 'sepet_clear'%}" data-action="clear"> Clear Cart</a>
-
+				{%if auth%}
+				<a class="btn btn-outline-dark" style="float: right;" href="{% url 'sepet_clear'%}"> Clear Cart</a>
+				{%endif%}
 				<br>
 				<br>
 
